@@ -6,19 +6,19 @@ type: docker
 name: default
 
 steps:
-
 - name: build
-  image: golang:1.13
+  image: maven:3.3-jdk-8
   commands:
-    - "go build -o ./myapp"
+  - mvn compile ./initial/pom.xml
+  - mvn test -B ./initial/pom.xml
 
-- name: publish  
-  image: plugins/docker
-  settings:
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-    repo: sarvan060394/dronetest
-    auto_tag: true
-    auto_tag_suffix: drone-build
+# - name: publish  
+#   image: plugins/docker
+#   settings:
+#     username:
+#       from_secret: docker_username
+#     password:
+#       from_secret: docker_password
+#     repo: sarvan060394/dronetest
+#     auto_tag: true
+#     auto_tag_suffix: drone-build
